@@ -1,13 +1,22 @@
 import { Module } from '@nestjs/common';
-import { NoticesService } from './notices.service';
-import { NoticesController } from './notices.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Notice, NoticeSchema } from 'src/routes/notices/schemas/notice.schema';
-// import { Notice } from './entities/notice.entity';
+
+import { NoticesController } from './notices.controller';
+import { NoticesService } from './notices.service';
+import { Notice, NoticeSchema } from './schemas/notice.schema';
+import {
+  Category,
+  CategorySchema,
+} from '../categories/schemas/category.schema';
+import { User, UserSchema } from '../users/schemas/user.schema';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Notice.name, schema: NoticeSchema }]),
+    MongooseModule.forFeature([
+      { name: Notice.name, schema: NoticeSchema },
+      { name: Category.name, schema: CategorySchema },
+      { name: User.name, schema: UserSchema },
+    ]),
   ],
   controllers: [NoticesController],
   providers: [NoticesService],

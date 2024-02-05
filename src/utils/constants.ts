@@ -1,5 +1,2 @@
-export enum Categories {
-  sell = 'sell',
-  lostFound = 'lost-found',
-  inGoodHands = 'in-good-hands',
-}
+export const mongoValidationError = 'ValidationError';
+export const mongoConflictError = 11000;

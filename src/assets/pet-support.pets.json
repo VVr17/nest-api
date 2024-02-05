@@ -1,0 +1,380 @@
+[{
+  "_id": {
+    "$oid": "63f4cd2dfe69014155ad92c8"
+  },
+  "name": "Shosha",
+  "owner": {
+    "$oid": "63f3a8cabe5a05319741e2d7"
+  },
+  "birthDate": "12.09.2010",
+  "breed": "British",
+  "comments": "Shosha is my best friend.",
+  "photoURL": "https://cdn.pixabay.com/photo/2017/07/06/10/49/british-shorthair-2477620_1280.jpg",
+  "createdAt": {
+    "$date": "2023-02-21T13:54:53.164Z"
+  },
+  "updatedAt": {
+    "$date": "2023-02-21T13:54:53.164Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "63f4ce0cb2548022ea074c96"
+  },
+  "name": "Bulbasavr",
+  "owner": {
+    "$oid": "63f36e12cf2f8d3d8a06f444"
+  },
+  "birthDate": "12.06.2020",
+  "breed": "Husky",
+  "comments": "This is my cool dog",
+  "photoURL": "https://cdn.pixabay.com/photo/2017/08/22/23/45/husky-2671006_1280.jpg",
+  "createdAt": {
+    "$date": "2023-02-21T13:58:36.794Z"
+  },
+  "updatedAt": {
+    "$date": "2023-02-21T13:58:36.794Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "63f5ce8f6afdbb177f7fa831"
+  },
+  "name": "Syoma",
+  "owner": {
+    "$oid": "63f36e12cf2f8d3d8a06f444"
+  },
+  "birthDate": "12.09.2018",
+  "breed": "Unknown",
+  "comments": "my first best friend",
+  "photoURL": "https://res.cloudinary.com/pet-support/image/upload/v1677053581/xmvba0sdexc93rgevkki.jpg",
+  "createdAt": {
+    "$date": "2023-02-22T08:13:03.726Z"
+  },
+  "updatedAt": {
+    "$date": "2023-02-22T08:13:03.726Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "63f89c1d012ecaaf049b8164"
+  },
+  "name": "Molly",
+  "owner": {
+    "$oid": "63f3c9664f7864d5ed5472d4"
+  },
+  "birthDate": "10.12.2020",
+  "breed": "red",
+  "comments": "fluffy cat",
+  "photoURL": "https://res.cloudinary.com/pet-support/image/upload/v1677237277/avatars/gbgowymfxsnnxuewuwr7.jpg",
+  "createdAt": {
+    "$date": "2023-02-24T11:14:37.766Z"
+  },
+  "updatedAt": {
+    "$date": "2023-02-24T11:14:37.766Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "63f8a80a012ecaaf049b830a"
+  },
+  "name": "Jack",
+  "owner": {
+    "$oid": "63f89b55012ecaaf049b813a"
+  },
+  "birthDate": "09.11.2022",
+  "breed": "Rassel",
+  "comments": "Good dog",
+  "photoURL": "https://res.cloudinary.com/pet-support/image/upload/v1677240329/avatars/m7o1u7cfbcyifwpsfddu.jpg",
+  "createdAt": {
+    "$date": "2023-02-24T12:05:30.175Z"
+  },
+  "updatedAt": {
+    "$date": "2023-02-24T12:05:30.175Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "63f92d86012ecaaf049b8d0a"
+  },
+  "name": "прро",
+  "owner": {
+    "$oid": "63f5ed1e6e40c361b244b0f6"
+  },
+  "birthDate": "08.02.2023",
+  "breed": "пврвпр",
+  "comments": "впрвпраоаро",
+  "photoURL": "https://res.cloudinary.com/pet-support/image/upload/v1677274501/avatars/jpnchik4fvsrh2ntzzto.jpg",
+  "createdAt": {
+    "$date": "2023-02-24T21:35:02.050Z"
+  },
+  "updatedAt": {
+    "$date": "2023-02-24T21:35:02.050Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "63f9d680012ecaaf049b8f70"
+  },
+  "name": "asdsa",
+  "owner": {
+    "$oid": "63f88e223bd9604b21c21b20"
+  },
+  "birthDate": "08.02.2023",
+  "breed": "sasada",
+  "comments": "dsfdsfdsfdsfdsfdsf",
+  "photoURL": "https://res.cloudinary.com/pet-support/image/upload/v1677317759/avatars/xeisbuvkkjf7eruduhiq.png",
+  "createdAt": {
+    "$date": "2023-02-25T09:36:00.658Z"
+  },
+  "updatedAt": {
+    "$date": "2023-02-25T09:36:00.658Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "63f9f319012ecaaf049b9333"
+  },
+  "name": "Roger",
+  "owner": {
+    "$oid": "63f3c9664f7864d5ed5472d4"
+  },
+  "birthDate": "08.11.2022",
+  "breed": "red",
+  "comments": "This is Roger, he is funny and I love him so much",
+  "photoURL": "https://res.cloudinary.com/pet-support/image/upload/v1677325081/avatars/xjkea6twc5jmh4wfl3ug.jpg",
+  "createdAt": {
+    "$date": "2023-02-25T11:38:01.941Z"
+  },
+  "updatedAt": {
+    "$date": "2023-02-25T11:38:01.941Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "63fa25d04ca997b35ba47d2b"
+  },
+  "name": "Kitty",
+  "owner": {
+    "$oid": "63f88e223bd9604b21c21b20"
+  },
+  "birthDate": "10.01.2023",
+  "breed": "None",
+  "comments": "Kitty is very, kind and sociable cat. Processed, vaccinated. She loves playing.",
+  "photoURL": "https://res.cloudinary.com/pet-support/image/upload/v1677338064/avatars/hzw6ndspk7lenn9hkbii.jpg",
+  "createdAt": {
+    "$date": "2023-02-25T15:14:24.589Z"
+  },
+  "updatedAt": {
+    "$date": "2023-02-25T15:14:24.589Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "63fa48784ca997b35ba47e61"
+  },
+  "name": "Kotya",
+  "owner": {
+    "$oid": "63f88e223bd9604b21c21b20"
+  },
+  "birthDate": "31.01.2023",
+  "breed": "Streetcat",
+  "comments": "The best kitty",
+  "photoURL": "https://res.cloudinary.com/pet-support/image/upload/v1677346936/avatars/qexocppf2ozrntotjigh.jpg",
+  "createdAt": {
+    "$date": "2023-02-25T17:42:16.983Z"
+  },
+  "updatedAt": {
+    "$date": "2023-02-25T17:42:16.983Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "63fa61c3db2bccaa955171d7"
+  },
+  "name": "ророл",
+  "owner": {
+    "$oid": "63f5ed1e6e40c361b244b0f6"
+  },
+  "birthDate": "29.01.2023",
+  "breed": "ололд",
+  "comments": "57847698прорпло678?*?*(?*(?**?*?(*?(*?(*?(*?(*?",
+  "photoURL": "https://res.cloudinary.com/pet-support/image/upload/v1677353410/avatars/xbzasf3fsakjvegzjgzl.jpg",
+  "createdAt": {
+    "$date": "2023-02-25T19:30:11.329Z"
+  },
+  "updatedAt": {
+    "$date": "2023-02-25T19:30:11.329Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "63fb05aedb2bccaa95517754"
+  },
+  "name": "Пуся",
+  "owner": {
+    "$oid": "63f88e223bd9604b21c21b20"
+  },
+  "birthDate": "31.01.2023",
+  "breed": "Кукуся",
+  "comments": "Аочлчбчбчьчь",
+  "photoURL": "https://res.cloudinary.com/pet-support/image/upload/v1677395374/avatars/sdfzkuds2iy8ts5m8q3x.jpg",
+  "createdAt": {
+    "$date": "2023-02-26T07:09:34.855Z"
+  },
+  "updatedAt": {
+    "$date": "2023-02-26T07:09:34.855Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "63fb5deca05745c592064e4e"
+  },
+  "name": "выфвфы",
+  "owner": {
+    "$oid": "63f88e223bd9604b21c21b20"
+  },
+  "birthDate": "07.02.2023",
+  "breed": "ваыаыа",
+  "comments": "сваыавыавы",
+  "photoURL": "https://res.cloudinary.com/pet-support/image/upload/v1677417963/avatars/kz4jwga63ymfdmip7ei7.jpg",
+  "createdAt": {
+    "$date": "2023-02-26T13:26:04.716Z"
+  },
+  "updatedAt": {
+    "$date": "2023-02-26T13:26:04.716Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "63fb60b6a05745c592064f15"
+  },
+  "name": "dsadsad",
+  "owner": {
+    "$oid": "63f5ed1e6e40c361b244b0f6"
+  },
+  "birthDate": "09.02.2023",
+  "breed": "sadsadsd",
+  "comments": "dsadasdd",
+  "photoURL": "https://res.cloudinary.com/pet-support/image/upload/v1677418677/avatars/uq12cy2f4opqzqez7ayg.png",
+  "createdAt": {
+    "$date": "2023-02-26T13:37:58.385Z"
+  },
+  "updatedAt": {
+    "$date": "2023-02-26T13:37:58.385Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "63fc9a54d59bcf2269af8db6"
+  },
+  "name": "Fluff",
+  "owner": {
+    "$oid": "63f36e12cf2f8d3d8a06f444"
+  },
+  "birthDate": "01.01.2023",
+  "breed": "British",
+  "comments": "Pretty kitten!",
+  "photoURL": "https://res.cloudinary.com/pet-support/image/upload/v1677498963/avatars/hpdvuzfsoctfxofnvl1e.jpg",
+  "createdAt": {
+    "$date": "2023-02-27T11:56:04.567Z"
+  },
+  "updatedAt": {
+    "$date": "2023-02-27T11:56:04.567Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "63fdac69d59bcf2269af923b"
+  },
+  "name": "Lyli",
+  "owner": {
+    "$oid": "63f5ed1e6e40c361b244b0f6"
+  },
+  "birthDate": "29.01.2023",
+  "breed": "Persian cat",
+  "comments": "Very playful and cute kitten. Likes to play with toys, jump on high surfaces and rest on his pillow.",
+  "photoURL": "https://res.cloudinary.com/pet-support/image/upload/v1677569129/avatars/cvrve0w9wp39eomzdkj8.jpg",
+  "createdAt": {
+    "$date": "2023-02-28T07:25:29.626Z"
+  },
+  "updatedAt": {
+    "$date": "2023-02-28T07:25:29.626Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "63fe1aade271c8c0a6c18fa5"
+  },
+  "name": "Shosha",
+  "owner": {
+    "$oid": "63f5ed1e6e40c361b244b0f6"
+  },
+  "birthDate": "28.09.2010",
+  "breed": "British",
+  "comments": "My best friend",
+  "photoURL": "https://res.cloudinary.com/pet-support/image/upload/v1677597356/avatars/t2h6bmaaitqdzgwymfjp.jpg",
+  "createdAt": {
+    "$date": "2023-02-28T15:15:57.160Z"
+  },
+  "updatedAt": {
+    "$date": "2023-02-28T15:15:57.160Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "63ff57df3e033a73caaf1973"
+  },
+  "name": "Dolli",
+  "owner": {
+    "$oid": "63f5ed1e6e40c361b244b0f6"
+  },
+  "birthDate": "11.01.2014",
+  "breed": "German Shepherd",
+  "comments": "...................",
+  "photoURL": "https://res.cloudinary.com/pet-support/image/upload/v1677678558/avatars/tenoggiyuhcqkbgvtiki.jpg",
+  "createdAt": {
+    "$date": "2023-03-01T13:49:19.893Z"
+  },
+  "updatedAt": {
+    "$date": "2023-03-01T13:49:19.893Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "63ff8a213e033a73caaf1ab8"
+  },
+  "name": "Kuzya",
+  "owner": {
+    "$oid": "63f5ed1e6e40c361b244b0f6"
+  },
+  "birthDate": "16.03.2020",
+  "breed": "British",
+  "comments": "My best friend",
+  "photoURL": "https://res.cloudinary.com/pet-support/image/upload/v1677691424/avatars/hbyaq20jkt0bzcaolsbl.jpg",
+  "createdAt": {
+    "$date": "2023-03-01T17:23:45.273Z"
+  },
+  "updatedAt": {
+    "$date": "2023-03-01T17:23:45.273Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6411f9133b29e5314fa868ac"
+  },
+  "name": "Анна Потапова",
+  "owner": {
+    "$oid": "63f4cce995d6957d39bd7215"
+  },
+  "birthDate": "05.03.2023",
+  "breed": "винчи",
+  "comments": "винчирго",
+  "photoURL": "https://res.cloudinary.com/pet-support/image/upload/v1678899475/avatars/gybgpe8vgxkutuickpkg.jpg",
+  "createdAt": {
+    "$date": "2023-03-15T16:57:55.827Z"
+  },
+  "updatedAt": {
+    "$date": "2023-03-15T16:57:55.827Z"
+  }
+}]

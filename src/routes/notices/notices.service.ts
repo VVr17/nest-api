@@ -1,34 +1,77 @@
-import { Injectable } from '@nestjs/common';
-import { Model } from 'mongoose';
-import { CreateNoticeDto } from './dto/create-notice.dto';
-import { UpdateNoticeDto } from './dto/update-notice.dto';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Notice } from 'src/routes/notices/schemas/notice.schema';
+import { Model } from 'mongoose';
+
+import { Category } from '../categories/schemas/category.schema';
+import { CreateNoticeDto } from './dto/create-notice.dto';
+import { Notice } from './schemas/notice.schema';
+import { UpdateNoticeDto } from './dto/update-notice.dto';
+import { User } from '../users/schemas/user.schema';
 
 @Injectable()
 export class NoticesService {
-  constructor(@InjectModel(Notice.name) private noticeModel: Model<Notice>) {}
+  constructor(
+    @InjectModel(Notice.name) private noticeModel: Model<Notice>,
+    @InjectModel(User.name) private userModel: Model<User>,
+    @InjectModel(Category.name) private categoryModel: Model<Category>,
+  ) {}
 
-  create(createNoticeDto: CreateNoticeDto) {
-    console.log(createNoticeDto);
-    return 'This action adds a new notice';
+  async create(createNoticeDto: CreateNoticeDto): Promise<Notice> {
+    const createdNotice = new this.noticeModel(createNoticeDto);
+    return createdNotice.save();
   }
 
-  findAll() {
-    return this.noticeModel.find().exec();
-    // return `This action returns all notices`;
+  async findAll(
+    category: string,
+    page: number,
+    limit: number,
+  ): Promise<{ notices: Notice[]; total: number }> {
+    const total = await this.noticeModel.countDocuments({ category });
+
+    const notices = await this.noticeModel
+      .find({ category })
+      .populate('owner', 'email name')
+      .populate('category', 'title')
+      .skip((page - 1) * limit)
+      .limit(limit)
+      .exec();
+
+    return { notices, total };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} notice`;
+  async findOne(id: string) {
+    const notice = await this.noticeModel
+      .findById(id)
+      .populate('owner', 'email name')
+      .populate('category', 'title')
+      .exec();
+
+    if (!notice) {
+      throw new NotFoundException(`Notice with ID ${id} not found`);
+    }
+
+    return notice;
   }
 
-  update(id: number, updateNoticeDto: UpdateNoticeDto) {
-    console.log(updateNoticeDto);
-    return `This action updates a #${id} notice`;
+  async update(id: string, updateNoticeDto: UpdateNoticeDto): Promise<Notice> {
+    const updatedNotice = await this.noticeModel.findOneAndUpdate(
+      { _id: id },
+      updateNoticeDto,
+      { new: true },
+    );
+
+    if (!updatedNotice) {
+      throw new NotFoundException(`Notice with ID ${id} not found`);
+    }
+
+    return updatedNotice;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} notice`;
+  async remove(id: string): Promise<void> {
+    const deletedNotice = await this.noticeModel.findByIdAndDelete(id);
+
+    if (!deletedNotice) {
+      throw new NotFoundException(`Notice with ID ${id} not found`);
+    }
   }
 }

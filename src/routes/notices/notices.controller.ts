@@ -7,39 +7,58 @@ import {
   Param,
   Delete,
   Query,
+  ParseIntPipe,
+  ValidationPipe,
 } from '@nestjs/common';
-import { NoticesService } from './notices.service';
 import { CreateNoticeDto } from './dto/create-notice.dto';
+import { NoticesService } from './notices.service';
 import { UpdateNoticeDto } from './dto/update-notice.dto';
-import { Categories } from 'src/utils/constants';
 
 @Controller('notices')
 export class NoticesController {
   constructor(private readonly noticesService: NoticesService) {}
 
   @Post()
-  create(@Body() createNoticeDto: CreateNoticeDto) {
-    return this.noticesService.create(createNoticeDto);
+  async addNotice(
+    @Body(new ValidationPipe()) createNoticeDto: CreateNoticeDto,
+  ) {
+    const notice = await this.noticesService.create(createNoticeDto);
+    return { message: 'New notice successfully created', data: notice };
   }
 
   @Get()
-  findAll(@Query('category') category: keyof typeof Categories) {
-    console.log(category);
-    return this.noticesService.findAll();
+  async getNotices(
+    @Query('category') category: string,
+    @Query('page', ParseIntPipe) page: number = 1,
+    @Query('limit', ParseIntPipe) limit: number = 10,
+  ) {
+    const response = await this.noticesService.findAll(category, page, limit);
+
+    return {
+      message: 'Success',
+      total: response.total,
+      data: response.notices,
+    };
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.noticesService.findOne(+id);
+  async getNoticeById(@Param('id') id: string) {
+    const notice = await this.noticesService.findOne(id);
+    return { message: 'Success', data: notice };
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateNoticeDto: UpdateNoticeDto) {
-    return this.noticesService.update(+id, updateNoticeDto);
+  async updateNotice(
+    @Param('id') id: string,
+    @Body() updateNoticeDto: UpdateNoticeDto,
+  ) {
+    const updatedNotice = await this.noticesService.update(id, updateNoticeDto);
+    return { message: 'Notice successfully updated', data: updatedNotice };
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.noticesService.remove(+id);
+  async removeNotice(@Param('id') id: string) {
+    await this.noticesService.remove(id);
+    return { message: `Notice ${id} has been deleted successfully` };
   }
 }
