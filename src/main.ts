@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { Swagger } from './swagger/swagger.config';
+import { ValidationPipe } from '@nestjs/common';
 import { useContainer } from 'class-validator';
 import * as dotenv from 'dotenv';
 
@@ -14,7 +15,8 @@ dotenv.config();
 
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
-  app.useGlobalInterceptors(new ErrorsInterceptor());
+  app.useGlobalPipes(new ValidationPipe()); // Adds validation
+  app.useGlobalInterceptors(new ErrorsInterceptor()); // Adds Error handler
 
   const swagger = new Swagger();
   swagger.init(app);

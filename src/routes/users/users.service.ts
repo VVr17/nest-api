@@ -3,14 +3,13 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Notice } from '../notices/schemas/notice.schema';
 import { User } from './schemas/user.schema';
 import { Category } from '../categories/schemas/category.schema';
 import { Model, Types } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { LoginUserDto } from './dto/login-user.dto';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -21,21 +20,18 @@ export class UsersService {
   ) {}
 
   async create(createUserDto: CreateUserDto) {
-    console.log(createUserDto);
-    return 'This action adds a new user';
+    const createdUser = new this.userModel(createUserDto);
+    return createdUser.save();
   }
 
-  async login(loginUserDto: LoginUserDto) {
-    console.log(loginUserDto);
-    return 'This action adds a new user';
+  async findOne(email: string): Promise<User> {
+    return await this.userModel
+      .findOne({ email })
+      .select('email name password');
   }
 
   async getCurrentUser() {
     return 'This action return current user';
-  }
-
-  async logout() {
-    return 'This action logout user';
   }
 
   async update(updateUserDto: UpdateUserDto) {

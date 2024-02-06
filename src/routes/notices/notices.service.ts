@@ -22,14 +22,20 @@ export class NoticesService {
   }
 
   async findAll(
-    category: string,
+    category: string | null,
     page: number,
     limit: number,
   ): Promise<{ notices: Notice[]; total: number }> {
-    const total = await this.noticeModel.countDocuments({ category });
+    const params: any = {};
+
+    if (category) {
+      params.category = category;
+    }
+
+    const total = await this.noticeModel.countDocuments(params);
 
     const notices = await this.noticeModel
-      .find({ category })
+      .find(params)
       .populate('owner', 'email name')
       .populate('category', 'title')
       .skip((page - 1) * limit)
@@ -39,7 +45,7 @@ export class NoticesService {
     return { notices, total };
   }
 
-  async findOne(id: string) {
+  async findOne(id: string): Promise<Notice> {
     const notice = await this.noticeModel
       .findById(id)
       .populate('owner', 'email name')

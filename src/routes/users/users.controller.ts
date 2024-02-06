@@ -3,40 +3,25 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
+  Put,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { LoginUserDto } from './dto/login-user.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Users') // Swagger tag for API
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
-
-  @Post('/signup')
-  async signup(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
-  }
-
-  @Post('/login')
-  async login(@Body() loginUserDto: LoginUserDto) {
-    return this.usersService.login(loginUserDto);
-  }
 
   @Get('/current')
   async getCurrentUser() {
     return this.usersService.getCurrentUser();
   }
 
-  @Get('/logout')
-  async logout() {
-    return this.usersService.logout();
-  }
-
-  @Patch('/current')
+  @Put('/current')
   async updateUser(@Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(updateUserDto);
   }

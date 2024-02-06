@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
   IsString,
@@ -9,12 +10,14 @@ import {
 } from 'class-validator';
 
 class TitleDto {
+  @ApiProperty()
   @IsString()
   @MinLength(4)
   @MaxLength(30)
   @IsNotEmpty()
   uk: string;
 
+  @ApiProperty()
   @IsString()
   @MinLength(4)
   @MaxLength(30)
@@ -23,10 +26,12 @@ class TitleDto {
 }
 
 export class CreateCategoryDto {
+  @ApiProperty() // Defines properties for CreateUserDto schema in Swagger
   @ValidateNested()
   @Type(() => TitleDto)
   title: TitleDto;
 
+  @ApiProperty()
   @IsString()
   @IsNotEmpty()
   @MinLength(4)

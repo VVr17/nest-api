@@ -1,22 +1,15 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Param,
-  ValidationPipe,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Categories') // Swagger tags for API
 @Controller('categories')
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
   @Post()
-  async addCategory(
-    @Body(new ValidationPipe()) createCategoryDto: CreateCategoryDto,
-  ) {
+  async addCategory(@Body() createCategoryDto: CreateCategoryDto) {
     const createdCategory =
       await this.categoriesService.create(createCategoryDto);
     return { message: 'Category successfully created', data: createdCategory };

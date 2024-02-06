@@ -1,59 +1,37 @@
-import {
-  IsString,
-  IsEmail,
-  IsOptional,
-  IsDate,
-  IsBoolean,
-} from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsString, IsEmail, IsOptional } from 'class-validator';
 
 export class CreateUserDto {
+  @ApiProperty() // Defines properties for CreateUserDto schema in Swagger
   @IsEmail()
   email: string;
 
+  @ApiProperty()
+  @IsString()
+  password: string;
+
+  @ApiProperty({ required: false })
   @IsOptional()
   @IsString()
-  password?: string;
+  name?: string;
 
-  @IsString()
-  name: string;
-
+  @ApiProperty({ required: false })
   @IsOptional()
   @IsString()
   birthday?: string;
 
+  @ApiProperty({ required: false })
   @IsOptional()
   @IsString()
   city?: string;
 
+  @ApiProperty({ required: false })
   @IsOptional()
   @IsString()
   phone?: string;
 
+  @ApiProperty({ required: false })
   @IsOptional()
   @IsString()
   photoURL?: string;
-
-  @IsOptional()
-  pets?: string[];
-
-  @IsOptional()
-  notices?: string[];
-
-  @IsOptional()
-  favoriteNotices?: string[];
-
-  @IsOptional()
-  @IsString()
-  authToken?: string;
-
-  @IsBoolean()
-  emailVerified?: boolean;
-
-  @IsOptional()
-  @IsString()
-  resetToken?: string;
-
-  @IsOptional()
-  @IsDate()
-  resetTokenExpiration?: Date;
 }

@@ -38,6 +38,7 @@ export class ErrorsInterceptor implements NestInterceptor {
           );
         }
 
+        console.log('error', err);
         return throwError(() => new InternalServerErrorException());
       }),
     );
