@@ -11,33 +11,67 @@ import {
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import {
+  ApiBadRequestResponse,
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiTags,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { User } from './schemas/user.schema';
+import { Notice } from '../notices/schemas/notice.schema';
 
 @ApiTags('Users') // Swagger tag for API
+@UseGuards(JwtAuthGuard)
+@ApiBearerAuth()
+@ApiUnauthorizedResponse({ description: 'Unauthorized' })
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @UseGuards(JwtAuthGuard)
+  // Get current user data
+  @ApiOkResponse({ type: User })
   @Get('/current')
-  async getUser(@Request() req) {
+  async getUser(@Request() req: AuthenticatedRequest) {
     return await this.usersService.findById(req.user._id);
   }
 
+  // update user data
+  @ApiOkResponse({
+    type: User,
+    description: 'User profile has been successfully updated',
+  })
+  @ApiBadRequestResponse({ description: 'Bad request' })
   @Put('/current')
-  async updateUser(@Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(updateUserDto);
+  async updateUser(
+    @Request() req: AuthenticatedRequest,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
+    const user = await this.usersService.update(updateUserDto, req.user._id);
+
+    return {
+      message: 'User profile has been successfully updated',
+      data: user,
+    };
   }
 
+  // Delete user account
+  @ApiOkResponse({ description: 'User profile has been successfully deleted' })
   @Delete('/current')
-  async removeUserAccount() {
-    return this.usersService.remove();
+  async removeUserAccount(@Request() req: AuthenticatedRequest) {
+    await this.usersService.remove(req.user._id);
+
+    return {
+      message: 'User profile has been successfully deleted',
+    };
   }
 
-  @Get(':id/notices')
-  async getUserNotices(@Param('id') userId: string) {
-    const notices = await this.usersService.getUserNotices(userId);
+  // Get user's own notices
+  @ApiOkResponse({ type: [Notice] })
+  @Get('/notices')
+  async getUserNotices(@Request() req: AuthenticatedRequest) {
+    const notices = await this.usersService.getUserNotices(req.user._id);
 
     return {
       message: 'Success',
@@ -45,42 +79,52 @@ export class UsersController {
     };
   }
 
-  @Get(':id/favorites')
-  async getUserFavorites(@Param('id') userId: string) {
-    const favoriteNotices =
-      await this.usersService.getUserFavoriteNotices(userId);
+  // Get user's favorite notices
+  @ApiOkResponse({ type: [Notice] })
+  @Get('/favorites')
+  async getUserFavorites(@Request() req: AuthenticatedRequest) {
+    const favoriteNotices = await this.usersService.getUserFavoriteNotices(
+      req.user._id,
+    );
+
     return {
       message: 'Success',
       data: favoriteNotices,
     };
   }
 
-  @Post(':id/favorites/:noticeId')
+  // Add notices to favorites
+  @ApiOkResponse({ type: [Notice] })
+  @Post('/favorites/:id')
   async addToFavorites(
-    @Param('id') userId: string,
-    @Param('noticeId') noticeId: string,
+    @Request() req: AuthenticatedRequest,
+    @Param('id') id: string,
   ) {
     const updatedNotices = await this.usersService.addToFavorites(
-      userId,
-      noticeId,
+      req.user._id,
+      id,
     );
+
     return {
-      message: `Notice ${noticeId} added to favorites for user ${userId}`,
+      message: `Notice ${id} added to favorites for user ${req.user._id}`,
       data: updatedNotices,
     };
   }
 
-  @Delete(':id/favorites/:noticeId')
+  // Remove notices from favorites
+  @ApiOkResponse({ type: [Notice] })
+  @Delete('/favorites/:id')
   async removeFromFavorites(
-    @Param('id') userId: string,
-    @Param('noticeId') noticeId: string,
+    @Request() req: AuthenticatedRequest,
+    @Param('id') id: string,
   ) {
     const updatedNotices = await this.usersService.removeFromFavorites(
-      userId,
-      noticeId,
+      req.user._id,
+      id,
     );
+
     return {
-      message: `Notice ${noticeId} removed from favorites for user ${userId}`,
+      message: `Notice ${id} removed from favorites for user ${req.user._id}`,
       data: updatedNotices,
     };
   }

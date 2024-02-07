@@ -1,5 +1,6 @@
 import {
   ApiBadRequestResponse,
+  ApiBearerAuth,
   ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
@@ -24,7 +25,7 @@ import { CreateNoticeDto } from './dto/create-notice.dto';
 import { NoticesService } from './notices.service';
 import { Notice } from './schemas/notice.schema';
 import { UpdateNoticeDto } from './dto/update-notice.dto';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @ApiTags('Notices') // Swagger tags for API
 @Controller('notices')
@@ -37,11 +38,12 @@ export class NoticesController {
   })
   @ApiUnauthorizedResponse({ description: 'Unauthorized' })
   @ApiBadRequestResponse({ description: 'Bad request' })
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Post()
   async addNotice(
     @Body() createNoticeDto: CreateNoticeDto,
-    @Request() req: any,
+    @Request() req: AuthenticatedRequest,
   ) {
     const notice = await this.noticesService.create(
       createNoticeDto,
@@ -92,12 +94,13 @@ export class NoticesController {
   @ApiUnauthorizedResponse({
     description: 'Unauthorized',
   })
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Put(':id')
   async updateNotice(
     @Param('id') id: string,
     @Body() updateNoticeDto: UpdateNoticeDto,
-    @Request() req: any,
+    @Request() req: AuthenticatedRequest,
   ) {
     console.log('req.user', req.user);
     const updatedNotice = await this.noticesService.update(id, updateNoticeDto);
@@ -114,9 +117,13 @@ export class NoticesController {
   @ApiUnauthorizedResponse({
     description: 'Unauthorized',
   })
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  async removeNotice(@Param('id') id: string, @Request() req: any) {
+  async removeNotice(
+    @Param('id') id: string,
+    @Request() req: AuthenticatedRequest,
+  ) {
     console.log('req.user', req.user);
     await this.noticesService.remove(id);
     return { message: `Notice ${id} has been deleted successfully` };

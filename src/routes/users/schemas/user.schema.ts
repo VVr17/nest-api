@@ -1,11 +1,13 @@
 import { HydratedDocument, SchemaTypes, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as bcrypt from 'bcryptjs';
+import { ApiProperty } from '@nestjs/swagger';
 
 export type UserDocument = HydratedDocument<User>;
 
 @Schema({ timestamps: true, versionKey: false })
 export class User {
+  @ApiProperty({ example: 'email@gmail.com' })
   @Prop({
     required: true,
     unique: true,
@@ -16,36 +18,51 @@ export class User {
   })
   email: string;
 
+  @ApiProperty({ example: 'Password1' })
   @Prop({ match: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{7,}$/ })
   password?: string;
 
+  @ApiProperty({ example: true })
+  @Prop({ default: false })
+  isAdmin: boolean;
+
+  @ApiProperty({ example: 'John Smith' })
   @Prop({
     minLength: 3,
     maxLength: 32,
     match: /^[a-zA-Zа-яА-ЯіІїЇґҐ]+(?: [a-zA-Zа-яА-ЯіІїЇґҐ]+)*$/,
     default: null,
   })
-  name?: string;
+  name: string;
 
+  @ApiProperty({ example: '20.11.1990' })
   @Prop({ default: null })
-  birthday?: string;
+  birthday: string;
 
+  @ApiProperty({ example: 'Kyiv, Ukraine' })
   @Prop({
     match:
       /^[a-zA-Zа-яА-ЯіІїЇґҐ]+(?:[-\s]?[a-zA-Zа-яА-ЯіІїЇґҐ]+),\s[a-zA-Zа-яА-ЯіІїЇ'’\s-]+$/,
     default: null,
   })
-  city?: string;
+  city: string;
 
+  @ApiProperty({ example: '+380991234567' })
   @Prop({ match: /^\+380\d{9}$/, default: null })
   phone?: string;
 
+  @ApiProperty({
+    example:
+      'https://cdn.pixabay.com/photo/2019/11/09/20/57/german-shepherd-4614451_1280.jpg',
+  })
   @Prop({ default: null })
-  photoURL?: string;
+  photoURL: string;
 
+  @ApiProperty()
   @Prop([{ type: Types.ObjectId, ref: 'Pet', default: [] }])
-  pets?: string[];
+  pets: string[];
 
+  @ApiProperty()
   @Prop([
     {
       type: SchemaTypes.ObjectId,
@@ -53,8 +70,9 @@ export class User {
       default: [],
     },
   ])
-  notices?: string[];
+  notices: string[];
 
+  @ApiProperty()
   @Prop([
     {
       type: SchemaTypes.ObjectId,
@@ -62,13 +80,13 @@ export class User {
       default: [],
     },
   ])
-  favoriteNotices?: string[];
+  favoriteNotices: string[];
 
   @Prop({ default: false })
-  emailVerified?: boolean;
+  emailVerified: boolean;
 
   @Prop({ default: null })
-  resetPasswordToken?: string;
+  resetPasswordToken: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

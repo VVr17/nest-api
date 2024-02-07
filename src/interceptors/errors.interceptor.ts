@@ -5,10 +5,11 @@ import {
   CallHandler,
   InternalServerErrorException,
   BadRequestException,
+  ConflictException,
 } from '@nestjs/common';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { mongoValidationError } from 'src/utils/constants';
+import { mongoConflictError, mongoValidationError } from 'src/utils/constants';
 
 @Injectable()
 export class ErrorsInterceptor implements NestInterceptor {
@@ -38,6 +39,19 @@ export class ErrorsInterceptor implements NestInterceptor {
           );
         }
 
+        // If it is MongoDb duplicate key error for unique indexes
+        if (err.code === mongoConflictError) {
+          const field = Object.keys(err.keyValue)[0];
+
+          return throwError(
+            () =>
+              new ConflictException({
+                message: `Field ${field}: ${err.keyValue[field]} already exists.`,
+                description: 'Duplicate key error',
+                status: 409,
+              }),
+          );
+        }
         console.log('error', err);
         return throwError(() => new InternalServerErrorException());
       }),

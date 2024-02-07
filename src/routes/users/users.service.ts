@@ -1,5 +1,5 @@
 import {
-  ConflictException,
+  BadRequestException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -32,24 +32,20 @@ export class UsersService {
   }
 
   async findById(id: string) {
-    const user = await this.userModel
+    return await this.userModel
       .findById(id)
-      .select('email name birthday city phone photoURL ');
-
-    if (!user) {
-      throw new NotFoundException(`User not found`);
-    }
-
-    return user;
+      .select('email name birthday city phone photoURL isAdmin');
   }
 
-  async update(updateUserDto: UpdateUserDto) {
-    console.log(updateUserDto);
-    return `This action updates current user`;
+  async update(updateUserDto: UpdateUserDto, id: string) {
+    return await this.userModel
+      .findByIdAndUpdate(id, updateUserDto, { new: true })
+      .select('email name birthday city phone photoURL');
   }
 
-  async remove() {
-    return `This action removes  user account from DB`;
+  async remove(id: string) {
+    //TODO: remove user data from notices and pets
+    return await this.userModel.findByIdAndDelete(id);
   }
 
   async getUserNotices(id: string) {
@@ -61,10 +57,6 @@ export class UsersService {
         select: 'title photoURL name breed',
       })
       .exec();
-
-    if (!user) {
-      throw new NotFoundException(`User with ${id} not found`);
-    }
 
     return user.notices;
   }
@@ -79,24 +71,19 @@ export class UsersService {
       })
       .exec();
 
-    if (!user) {
-      throw new NotFoundException(`User with ${id} not found`);
-    }
     return user.favoriteNotices;
   }
 
   async addToFavorites(userId: string, noticeId: string) {
     const noticeObjectId = new Types.ObjectId(noticeId);
 
-    const user = await this.userModel.findById(userId);
+    const user = await this.userModel
+      .findById(userId)
+      .select('favoriteNotices');
     const isInFavorites = user.favoriteNotices.includes(noticeId);
 
-    if (!user) {
-      throw new NotFoundException(`User with ${userId} not found`);
-    }
-
     if (isInFavorites) {
-      throw new ConflictException(
+      throw new BadRequestException(
         `Notice with id: ${noticeId} has been already added`,
       );
     }
@@ -107,6 +94,7 @@ export class UsersService {
         { $push: { favoriteNotices: noticeObjectId } },
         { new: true },
       )
+      .select('favoriteNotices')
       .populate({
         path: 'favoriteNotices',
         select: 'title photoURL name breed',
@@ -118,11 +106,9 @@ export class UsersService {
   async removeFromFavorites(userId: string, noticeId: string) {
     const noticeObjectId = new Types.ObjectId(noticeId);
 
-    const user = await this.userModel.findById(userId);
-
-    if (!user) {
-      throw new NotFoundException(`User with ${userId} not found`);
-    }
+    const user = await this.userModel
+      .findById(userId)
+      .select('favoriteNotices');
 
     if (!user.favoriteNotices.includes(noticeId)) {
       throw new NotFoundException(`Notice with ${noticeId} has not been found`);
@@ -134,6 +120,7 @@ export class UsersService {
         { $pull: { favoriteNotices: noticeObjectId } },
         { new: true },
       )
+      .select('favoriteNotices')
       .populate({
         path: 'favoriteNotices',
         select: 'title photoURL name breed',

@@ -18,11 +18,24 @@ export class NoticesService {
 
   async create(
     createNoticeDto: CreateNoticeDto,
-    owner: string,
+    userId: string,
   ): Promise<Notice> {
-    console.log('owner', owner);
-    const createdNotice = new this.noticeModel(createNoticeDto);
-    return createdNotice.save();
+    // Create notice
+    const noticeData = new this.noticeModel({
+      ...createNoticeDto,
+      owner: userId,
+    });
+
+    const createdNotice = await noticeData.save();
+
+    // Update user's notices
+    await this.userModel.findByIdAndUpdate(
+      { _id: userId },
+      { $push: { notices: createdNotice._id } },
+      { new: true },
+    );
+
+    return createdNotice;
   }
 
   async findAll(
@@ -70,6 +83,8 @@ export class NoticesService {
       { new: true },
     );
 
+    // TODO: to add user.notices update
+
     if (!updatedNotice) {
       throw new NotFoundException(`Notice with ID ${id} not found`);
     }
@@ -79,6 +94,8 @@ export class NoticesService {
 
   async remove(id: string): Promise<void> {
     const deletedNotice = await this.noticeModel.findByIdAndDelete(id);
+
+    // TODO: to add user.notices update
 
     if (!deletedNotice) {
       throw new NotFoundException(`Notice with ID ${id} not found`);

@@ -1,13 +1,18 @@
-import { ApiTags } from '@nestjs/swagger';
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { Controller, Get, Post, Body, Param, UseGuards } from '@nestjs/common';
+
+import { AdminGuard } from '../auth/guards/admin.guard';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @ApiTags('Categories') // Swagger tags for API
 @Controller('categories')
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, AdminGuard)
   @Post()
   async addCategory(@Body() createCategoryDto: CreateCategoryDto) {
     const createdCategory =

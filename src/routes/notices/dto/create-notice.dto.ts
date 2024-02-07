@@ -68,10 +68,6 @@ export class CreateNoticeDto {
   @IsNumber()
   price: number;
 
-  @IsString()
-  @IsNotEmpty()
-  owner: string;
-
   @ApiProperty({ example: '65c09f85e5500442ec32c622' })
   @IsString()
   @IsNotEmpty()

@@ -7,6 +7,7 @@ export class Swagger {
       .setTitle('Pet-support-project')
       .setDescription('Pet-support API description')
       .setVersion('1.0')
+      .addBearerAuth() // Add the Authorization Bearer Token
       .build();
 
     const document = SwaggerModule.createDocument(app, config);
