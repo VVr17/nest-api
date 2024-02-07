@@ -21,6 +21,7 @@ import {
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { User } from './schemas/user.schema';
 import { Notice } from '../notices/schemas/notice.schema';
+import { Pet } from '../pets/schemas/pet.schema';
 
 @ApiTags('Users') // Swagger tag for API
 @UseGuards(JwtAuthGuard)
@@ -32,7 +33,7 @@ export class UsersController {
 
   // Get current user data
   @ApiOkResponse({ type: User })
-  @Get('/current')
+  @Get('/me')
   async getUser(@Request() req: AuthenticatedRequest) {
     return await this.usersService.findById(req.user._id);
   }
@@ -43,7 +44,7 @@ export class UsersController {
     description: 'User profile has been successfully updated',
   })
   @ApiBadRequestResponse({ description: 'Bad request' })
-  @Put('/current')
+  @Put('/me')
   async updateUser(
     @Request() req: AuthenticatedRequest,
     @Body() updateUserDto: UpdateUserDto,
@@ -58,8 +59,8 @@ export class UsersController {
 
   // Delete user account
   @ApiOkResponse({ description: 'User profile has been successfully deleted' })
-  @Delete('/current')
-  async removeUserAccount(@Request() req: AuthenticatedRequest) {
+  @Delete('/me')
+  async removeUser(@Request() req: AuthenticatedRequest) {
     await this.usersService.remove(req.user._id);
 
     return {
@@ -69,7 +70,7 @@ export class UsersController {
 
   // Get user's own notices
   @ApiOkResponse({ type: [Notice] })
-  @Get('/notices')
+  @Get('/me/notices')
   async getUserNotices(@Request() req: AuthenticatedRequest) {
     const notices = await this.usersService.getUserNotices(req.user._id);
 
@@ -81,7 +82,7 @@ export class UsersController {
 
   // Get user's favorite notices
   @ApiOkResponse({ type: [Notice] })
-  @Get('/favorites')
+  @Get('/me/favorites')
   async getUserFavorites(@Request() req: AuthenticatedRequest) {
     const favoriteNotices = await this.usersService.getUserFavoriteNotices(
       req.user._id,
@@ -95,7 +96,7 @@ export class UsersController {
 
   // Add notices to favorites
   @ApiOkResponse({ type: [Notice] })
-  @Post('/favorites/:id')
+  @Post('/me/favorites/:id')
   async addToFavorites(
     @Request() req: AuthenticatedRequest,
     @Param('id') id: string,
@@ -113,7 +114,7 @@ export class UsersController {
 
   // Remove notices from favorites
   @ApiOkResponse({ type: [Notice] })
-  @Delete('/favorites/:id')
+  @Delete('/me/favorites/:id')
   async removeFromFavorites(
     @Request() req: AuthenticatedRequest,
     @Param('id') id: string,
@@ -126,6 +127,18 @@ export class UsersController {
     return {
       message: `Notice ${id} removed from favorites for user ${req.user._id}`,
       data: updatedNotices,
+    };
+  }
+
+  // Get user's favorite notices
+  @ApiOkResponse({ type: [Pet] })
+  @Get('/me/pets')
+  async getUserPets(@Request() req: AuthenticatedRequest) {
+    const pets = await this.usersService.getUserPets(req.user._id);
+
+    return {
+      message: 'Success',
+      data: pets,
     };
   }
 }

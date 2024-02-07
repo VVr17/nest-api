@@ -23,6 +23,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       throw new UnauthorizedException('Email or password is not valid');
     }
 
-    return { _id: payload.sub, email: payload.email, isAdmin: user.isAdmin };
+    return user;
   }
 }

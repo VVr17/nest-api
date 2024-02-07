@@ -2,6 +2,7 @@ import {
   ApiBadRequestResponse,
   ApiBearerAuth,
   ApiCreatedResponse,
+  ApiForbiddenResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiQuery,
@@ -26,6 +27,7 @@ import { NoticesService } from './notices.service';
 import { Notice } from './schemas/notice.schema';
 import { UpdateNoticeDto } from './dto/update-notice.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { IsMyNoticeGuard } from './guards/isMyNotice.guard';
 
 @ApiTags('Notices') // Swagger tags for API
 @Controller('notices')
@@ -34,7 +36,7 @@ export class NoticesController {
 
   @ApiCreatedResponse({
     description: 'The notice has been successfully created.',
-    type: [Notice],
+    type: Notice,
   })
   @ApiUnauthorizedResponse({ description: 'Unauthorized' })
   @ApiBadRequestResponse({ description: 'Bad request' })
@@ -94,15 +96,14 @@ export class NoticesController {
   @ApiUnauthorizedResponse({
     description: 'Unauthorized',
   })
+  @ApiForbiddenResponse({ description: 'Forbidden' })
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, IsMyNoticeGuard)
   @Put(':id')
   async updateNotice(
     @Param('id') id: string,
     @Body() updateNoticeDto: UpdateNoticeDto,
-    @Request() req: AuthenticatedRequest,
   ) {
-    console.log('req.user', req.user);
     const updatedNotice = await this.noticesService.update(id, updateNoticeDto);
     return { message: 'Notice successfully updated', data: updatedNotice };
   }
@@ -117,14 +118,11 @@ export class NoticesController {
   @ApiUnauthorizedResponse({
     description: 'Unauthorized',
   })
+  @ApiForbiddenResponse({ description: 'Forbidden' })
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, IsMyNoticeGuard)
   @Delete(':id')
-  async removeNotice(
-    @Param('id') id: string,
-    @Request() req: AuthenticatedRequest,
-  ) {
-    console.log('req.user', req.user);
+  async removeNotice(@Param('id') id: string) {
     await this.noticesService.remove(id);
     return { message: `Notice ${id} has been deleted successfully` };
   }

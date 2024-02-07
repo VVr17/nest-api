@@ -22,7 +22,7 @@ export class CreatePetDto {
   @ApiProperty({ required: false })
   @IsOptional()
   @IsString()
-  birthDate?: string;
+  birthDate: string;
 
   @ApiProperty()
   @IsString()

@@ -2,18 +2,16 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { Category } from '../categories/schemas/category.schema';
 import { CreateNoticeDto } from './dto/create-notice.dto';
 import { Notice } from './schemas/notice.schema';
 import { UpdateNoticeDto } from './dto/update-notice.dto';
-import { User } from '../users/schemas/user.schema';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class NoticesService {
   constructor(
     @InjectModel(Notice.name) private noticeModel: Model<Notice>,
-    @InjectModel(User.name) private userModel: Model<User>,
-    @InjectModel(Category.name) private categoryModel: Model<Category>,
+    private readonly usersService: UsersService,
   ) {}
 
   async create(
@@ -29,10 +27,9 @@ export class NoticesService {
     const createdNotice = await noticeData.save();
 
     // Update user's notices
-    await this.userModel.findByIdAndUpdate(
-      { _id: userId },
+    await this.usersService.updateField(
       { $push: { notices: createdNotice._id } },
-      { new: true },
+      userId,
     );
 
     return createdNotice;

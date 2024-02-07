@@ -10,7 +10,7 @@ export class Notice {
   @Prop({ required: true, minLength: 2, maxLength: 48, trim: true })
   title: string;
 
-  @ApiProperty({ example: "Owner's object data" })
+  @ApiProperty({ example: { name: 'John Smith', email: 'email@gmail.com' } })
   @Prop({ type: SchemaTypes.ObjectId, ref: 'User', required: true })
   owner: string;
 
@@ -57,7 +57,7 @@ export class Notice {
   })
   location: string;
 
-  @ApiProperty({ example: 'This is my comments' })
+  @ApiProperty({ example: 'Good friend' })
   @Prop({ required: true, minLength: 8, maxLength: 200 })
   comments: string;
 
@@ -65,7 +65,14 @@ export class Notice {
   @Prop({ default: null })
   price?: number;
 
-  @ApiProperty({ example: 'Category object data' })
+  @ApiProperty({
+    example: {
+      title: {
+        uk: 'Загублені/Знайдені',
+        en: 'Lost/Found',
+      },
+    },
+  })
   @Prop({ type: SchemaTypes.ObjectId, ref: 'Category', required: true })
   category: string;
 }

@@ -4,20 +4,14 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { Notice } from '../notices/schemas/notice.schema';
 import { User } from './schemas/user.schema';
-import { Category } from '../categories/schemas/category.schema';
 import { Model, Types } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
 export class UsersService {
-  constructor(
-    @InjectModel(Notice.name) private noticeModel: Model<Notice>,
-    @InjectModel(User.name) private userModel: Model<User>,
-    @InjectModel(Category.name) private categoryModel: Model<Category>,
-  ) {}
+  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
   async create(createUserDto: CreateUserDto) {
     const createdUser = new this.userModel(createUserDto);
@@ -34,7 +28,7 @@ export class UsersService {
   async findById(id: string) {
     return await this.userModel
       .findById(id)
-      .select('email name birthday city phone photoURL isAdmin');
+      .select('email name birthday city phone photoURL pets notices isAdmin');
   }
 
   async update(updateUserDto: UpdateUserDto, id: string) {
@@ -46,6 +40,10 @@ export class UsersService {
   async remove(id: string) {
     //TODO: remove user data from notices and pets
     return await this.userModel.findByIdAndDelete(id);
+  }
+
+  async updateField(dataToUpdate: any, id: string) {
+    return await this.userModel.findByIdAndUpdate({ _id: id }, dataToUpdate);
   }
 
   async getUserNotices(id: string) {
@@ -127,5 +125,14 @@ export class UsersService {
       });
 
     return updatedUser.favoriteNotices;
+  }
+
+  async getUserPets(id: string) {
+    const user = await this.userModel.findById(id).select('pets').populate({
+      path: 'pets',
+      select: 'name breed',
+    });
+
+    return user.pets;
   }
 }

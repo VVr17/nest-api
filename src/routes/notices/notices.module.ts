@@ -9,6 +9,7 @@ import {
   CategorySchema,
 } from '../categories/schemas/category.schema';
 import { User, UserSchema } from '../users/schemas/user.schema';
+import { UsersService } from '../users/users.service';
 
 @Module({
   imports: [
@@ -19,6 +20,6 @@ import { User, UserSchema } from '../users/schemas/user.schema';
     ]),
   ],
   controllers: [NoticesController],
-  providers: [NoticesService],
+  providers: [NoticesService, UsersService],
 })
 export class NoticesModule {}

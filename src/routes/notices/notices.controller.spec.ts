@@ -5,6 +5,7 @@ import { getModelToken } from '@nestjs/mongoose';
 import { Notice } from './schemas/notice.schema';
 import { User } from '../users/schemas/user.schema';
 import { Category } from '../categories/schemas/category.schema';
+import { UsersService } from '../users/users.service';
 
 describe('NoticesController', () => {
   let controller: NoticesController;
@@ -14,6 +15,7 @@ describe('NoticesController', () => {
       controllers: [NoticesController],
       providers: [
         NoticesService,
+        UsersService,
         {
           provide: getModelToken(Notice.name),
           useValue: {
