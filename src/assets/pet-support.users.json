@@ -9,7 +9,6 @@
     "city": "Kyiv, Ukraine",
     "phone": "+380876544586",
     "password": "$2b$10$2k7KdSMc8KW0MzU3ZduhieAvBFRQq/0kba.osQ6PDoRoPccA/0bd6",
-    "authToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2YzNmUxMmNmMmY4ZDNkOGEwNmY0NDQiLCJpYXQiOjE2Nzc2NTkzNDIsImV4cCI6MTY3Nzc0NTc0Mn0.lP5AC1g9F88cE0zexj7gENPnLh8b8PidG5VhzMOtjzo",
     "photoURL": "https://res.cloudinary.com/pet-support/image/upload/v1677053014/m8qzgznkdfdb87gsemph.jpg",
     "pets": [
       {
@@ -103,7 +102,6 @@
     "city": "Kyiv, Ukraine",
     "phone": "+380111110071",
     "password": "$2b$10$1XlWggA7x1PKMJe68TUHze3lLW/4Pqsmxkqben9FCt4usUfMjjLsC",
-    "authToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2YzYThjYWJlNWEwNTMxOTc0MWUyZDciLCJpYXQiOjE2NzgxMTQ1NjgsImV4cCI6MTY3ODIwMDk2OH0.pfb15m86KwyqKt3FLnN6T6TA0Rjp-Q0U-IpqXOSxMSA",
     "photoURL": "https://res.cloudinary.com/pet-support/image/upload/v1677841165/avatars/g9qa8atudlpvgpkakhp2.jpg",
     "pets": [
       {
@@ -218,7 +216,6 @@
     "city": "dsad, dasd",
     "phone": "+380678790051",
     "password": "$2b$10$6MFu/lpmGYY1KCg1R8IMe.vBZQAtJ7D/G5me41avbE79K2l8paxxu",
-    "authToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2YzYWI1Mjg0ODJhMTQxYmJhMTFhZTkiLCJpYXQiOjE2NzkwNTgzNTAsImV4cCI6MTY3OTE0NDc1MH0.xhaq2i1EWtwylA0Kf4HtBJIkFaPM8r6FY00CENJvn5k",
     "photoURL": "https://res.cloudinary.com/pet-support/image/upload/v1677435914/avatars/g1m8jywclc5gajlhuntp.jpg",
     "pets": [],
     "notices": [
@@ -254,7 +251,6 @@
     "city": "Kharkiv, Kharkivska oblast",
     "phone": "+380765432865",
     "password": "$2b$10$NzOJCyYGNoctBptkeAYMaOYzb54LjdaYZeJM7ONXk53JD2HUmcv0u",
-    "authToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2YzYzk2NjRmNzg2NGQ1ZWQ1NDcyZDQiLCJpYXQiOjE2Nzc2ODU3NTMsImV4cCI6MTY3Nzc3MjE1M30.NAab7FlDhznCwrrn7fXPro2E5N8vVVn3fsBSRPe4etM",
     "photoURL": "https://res.cloudinary.com/pet-support/image/upload/v1677408479/avatars/ozdmrho8atwaldfa0hgo.jpg",
     "pets": [
       {
@@ -351,7 +347,6 @@
     "city": "Odesa, Ukraine",
     "phone": "+380008755555",
     "password": "$2b$10$xbpbZP60d0xiN1ZLst7wd.VGm.c/VPNXr7mWLEiDVIWcyC6RPw.nG",
-    "authToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2YzZTc2N2M4NTUxOTlhMzEwYzU2ZWQiLCJpYXQiOjE2Nzc4MzYzMzEsImV4cCI6MTY3NzkyMjczMX0.9K5J9Bn98Ot0xeRffPcuXBqbEQ8INDUW-r0grAGUx1o",
     "photoURL": "https://res.cloudinary.com/pet-support/image/upload/v1677836344/avatars/rb51ub2paxctmmdn2xtq.jpg",
     "pets": [],
     "notices": [
@@ -390,7 +385,6 @@
     "city": "Kyiv, Kyiv",
     "phone": "+380123456789",
     "password": "$2b$10$.TpmKm/z85xl.oM1knxlxeRbOpaOj1ZlSqWmj0gQsZuKIjbzYShRW",
-    "authToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2Y0OTJmMGYzMTQ4N2NlZGY2NjAxMzgiLCJpYXQiOjE2Nzc4MjY3MDQsImV4cCI6MTY3NzkxMzEwNH0.pja6F94G5yVUaOnajo-slUBPtdh4K3DcNrQKnSS6pVQ",
     "photoURL": "https://res.cloudinary.com/pet-support/image/upload/v1677315265/avatars/rnmfydbelmzinme2pvmt.jpg",
     "pets": [],
     "notices": [
@@ -426,7 +420,6 @@
     "city": "Kyiv, Ukraine",
     "phone": "+380123456789",
     "password": "$2b$10$FoBT0b94g5Dn6FK301BxKON6vBY3f1CE5NuWkWUw5H1cGRDxw9Wim",
-    "authToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2Y0Y2NlOTk1ZDY5NTdkMzliZDcyMTUiLCJpYXQiOjE2NzY5ODc2MjUsImV4cCI6MTY3NzA3NDAyNX0.REiQoBIsatOuHdCf5r80NvFXutgwA177xR4uyD4Cnms",
     "photoURL": null,
     "pets": [],
     "notices": [],
@@ -448,7 +441,6 @@
     "city": "Kyiv, Kyiv",
     "phone": "+380996578005",
     "password": "$2b$10$b6TU7bJ7bRAPvU.IK6gAOO5e.50U.ImvYaxwmgwHcTiumCD0CPhy2",
-    "authToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2Y1ZWQxZTZlNDBjMzYxYjI0NGIwZjYiLCJpYXQiOjE2NzcwNjE0MDcsImV4cCI6MTY3NzE0NzgwN30.H9k1tYd_1Os_ZdoV45-sphbsoohQ_UaakwToH-61lPY",
     "photoURL": null,
     "pets": [],
     "notices": [],
@@ -470,7 +462,6 @@
     "city": "Dnipro, Ukraine",
     "phone": "+380671111111",
     "password": "$2b$10$9pK6rJYcMVHe1XMjO5dLc.s/PCiyOVWnh97qxIwRm2oqI.VhUOrJy",
-    "authToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2Y4OGUyMjNiZDk2MDRiMjFjMjFiMjAiLCJpYXQiOjE2Nzc2MDI2NjEsImV4cCI6MTY3NzY4OTA2MX0.R7c4FElfYguceq5hxBXQ_HJYZX0LHrBVwvuK7WLYGgA",
     "photoURL": "https://res.cloudinary.com/pet-support/image/upload/v1677400377/avatars/dbjzdvnlynpbxtdlgiw1.jpg",
     "pets": [
       {
@@ -496,7 +487,6 @@
     "city": "Vinnitsa,Ukraine",
     "phone": "+380978140899",
     "password": "$2b$10$gB4r6a.Wxn7CpNPd0xn7Gu4rkUsFjJhIzi/WQOjAXjFsBLaETxyzW",
-    "authToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2Y4OWI1NTAxMmVjYWFmMDQ5YjgxM2EiLCJpYXQiOjE2Nzc0MDY5NDcsImV4cCI6MTY3NzQ5MzM0N30.xopoShWFiuAxwbOpUuMM8E5U6A7Kf9NPKAY3pBr1WEo",
     "photoURL": null,
     "pets": [
       {
@@ -539,7 +529,6 @@
     "city": "Rivne, Rivnenska",
     "phone": "+380967928968",
     "password": "$2b$10$5oTH7YDwEobiPBrRDlCXo.H3CvoRtt5Q2G919E3YuGyCZFEd3awDu",
-    "authToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2Y4YzJkMjAxMmVjYWFmMDQ5Yjg2MTEiLCJpYXQiOjE2Nzc2MDU1MDgsImV4cCI6MTY3NzY5MTkwOH0.uMOlx3T95pj2fo4RnxxBwppxpfr1UyYUhxQmTGPnQU8",
     "photoURL": "https://res.cloudinary.com/pet-support/image/upload/v1677496149/avatars/mpqf2qdzy5nqiowqrm8b.jpg",
     "pets": [],
     "notices": [],

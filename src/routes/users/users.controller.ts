@@ -6,19 +6,23 @@ import {
   Param,
   Delete,
   Put,
+  Request,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @ApiTags('Users') // Swagger tag for API
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Get('/current')
-  async getCurrentUser() {
-    return this.usersService.getCurrentUser();
+  async getUser(@Request() req) {
+    return await this.usersService.findById(req.user._id);
   }
 
   @Put('/current')

@@ -23,22 +23,24 @@ export class User {
     minLength: 3,
     maxLength: 32,
     match: /^[a-zA-Zа-яА-ЯіІїЇґҐ]+(?: [a-zA-Zа-яА-ЯіІїЇґҐ]+)*$/,
+    default: null,
   })
   name?: string;
 
-  @Prop()
+  @Prop({ default: null })
   birthday?: string;
 
   @Prop({
     match:
       /^[a-zA-Zа-яА-ЯіІїЇґҐ]+(?:[-\s]?[a-zA-Zа-яА-ЯіІїЇґҐ]+),\s[a-zA-Zа-яА-ЯіІїЇ'’\s-]+$/,
+    default: null,
   })
   city?: string;
 
-  @Prop({ match: /^\+380\d{9}$/ })
+  @Prop({ match: /^\+380\d{9}$/, default: null })
   phone?: string;
 
-  @Prop()
+  @Prop({ default: null })
   photoURL?: string;
 
   @Prop([{ type: Types.ObjectId, ref: 'Pet', default: [] }])
@@ -62,21 +64,16 @@ export class User {
   ])
   favoriteNotices?: string[];
 
-  @Prop({ default: null })
-  authToken?: string;
-
   @Prop({ default: false })
   emailVerified?: boolean;
 
   @Prop({ default: null })
-  resetToken?: string;
-
-  @Prop({ default: null })
-  resetTokenExpiration?: Date;
+  resetPasswordToken?: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
 
+// Password hashing before store new user to DB
 UserSchema.pre('save', async function preSave(next) {
   // Only hash the password if it has been modified or is new
   if (!this.isModified('password')) {

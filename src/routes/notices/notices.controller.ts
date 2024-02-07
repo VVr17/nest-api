@@ -1,17 +1,4 @@
 import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Param,
-  Delete,
-  Query,
-  Put,
-} from '@nestjs/common';
-import { CreateNoticeDto } from './dto/create-notice.dto';
-import { NoticesService } from './notices.service';
-import { UpdateNoticeDto } from './dto/update-notice.dto';
-import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
   ApiNotFoundResponse,
@@ -20,7 +7,24 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Query,
+  Put,
+  UseGuards,
+  Request,
+} from '@nestjs/common';
+
+import { CreateNoticeDto } from './dto/create-notice.dto';
+import { NoticesService } from './notices.service';
 import { Notice } from './schemas/notice.schema';
+import { UpdateNoticeDto } from './dto/update-notice.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @ApiTags('Notices') // Swagger tags for API
 @Controller('notices')
@@ -33,9 +37,16 @@ export class NoticesController {
   })
   @ApiUnauthorizedResponse({ description: 'Unauthorized' })
   @ApiBadRequestResponse({ description: 'Bad request' })
+  @UseGuards(JwtAuthGuard)
   @Post()
-  async addNotice(@Body() createNoticeDto: CreateNoticeDto) {
-    const notice = await this.noticesService.create(createNoticeDto);
+  async addNotice(
+    @Body() createNoticeDto: CreateNoticeDto,
+    @Request() req: any,
+  ) {
+    const notice = await this.noticesService.create(
+      createNoticeDto,
+      req.user._id,
+    );
     return { message: 'New notice successfully created', data: notice };
   }
 
@@ -81,11 +92,14 @@ export class NoticesController {
   @ApiUnauthorizedResponse({
     description: 'Unauthorized',
   })
+  @UseGuards(JwtAuthGuard)
   @Put(':id')
   async updateNotice(
     @Param('id') id: string,
     @Body() updateNoticeDto: UpdateNoticeDto,
+    @Request() req: any,
   ) {
+    console.log('req.user', req.user);
     const updatedNotice = await this.noticesService.update(id, updateNoticeDto);
     return { message: 'Notice successfully updated', data: updatedNotice };
   }
@@ -100,8 +114,10 @@ export class NoticesController {
   @ApiUnauthorizedResponse({
     description: 'Unauthorized',
   })
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  async removeNotice(@Param('id') id: string) {
+  async removeNotice(@Param('id') id: string, @Request() req: any) {
+    console.log('req.user', req.user);
     await this.noticesService.remove(id);
     return { message: `Notice ${id} has been deleted successfully` };
   }

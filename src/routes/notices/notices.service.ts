@@ -16,7 +16,11 @@ export class NoticesService {
     @InjectModel(Category.name) private categoryModel: Model<Category>,
   ) {}
 
-  async create(createNoticeDto: CreateNoticeDto): Promise<Notice> {
+  async create(
+    createNoticeDto: CreateNoticeDto,
+    owner: string,
+  ): Promise<Notice> {
+    console.log('owner', owner);
     const createdNotice = new this.noticeModel(createNoticeDto);
     return createdNotice.save();
   }

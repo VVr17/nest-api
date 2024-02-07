@@ -5,6 +5,7 @@ import { getModelToken } from '@nestjs/mongoose';
 import { Notice } from '../notices/schemas/notice.schema';
 import { User } from '../users/schemas/user.schema';
 import { Category } from '../categories/schemas/category.schema';
+import { JwtService } from '@nestjs/jwt';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -14,6 +15,7 @@ describe('AuthService', () => {
       providers: [
         AuthService,
         UsersService,
+        JwtService,
         {
           provide: getModelToken(Notice.name),
           useValue: {

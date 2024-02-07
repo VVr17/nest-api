@@ -27,11 +27,20 @@ export class UsersService {
   async findOne(email: string): Promise<User> {
     return await this.userModel
       .findOne({ email })
-      .select('email name password');
+      .select('email name password')
+      .lean();
   }
 
-  async getCurrentUser() {
-    return 'This action return current user';
+  async findById(id: string) {
+    const user = await this.userModel
+      .findById(id)
+      .select('email name birthday city phone photoURL ');
+
+    if (!user) {
+      throw new NotFoundException(`User not found`);
+    }
+
+    return user;
   }
 
   async update(updateUserDto: UpdateUserDto) {
