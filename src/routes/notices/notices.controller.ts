@@ -122,8 +122,11 @@ export class NoticesController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, IsMyNoticeGuard)
   @Delete(':id')
-  async removeNotice(@Param('id') id: string) {
-    await this.noticesService.remove(id);
+  async removeNotice(
+    @Param('id') id: string,
+    @Request() req: AuthenticatedRequest,
+  ) {
+    await this.noticesService.removeOne(id, req.user._id);
     return { message: `Notice ${id} has been deleted successfully` };
   }
 }

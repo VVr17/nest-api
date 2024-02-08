@@ -8,9 +8,6 @@ import {
   Put,
   Request,
 } from '@nestjs/common';
-import { PetsService } from './pets.service';
-import { CreatePetDto } from './dto/create-pet.dto';
-import { UpdatePetDto } from './dto/update-pet.dto';
 import {
   ApiBearerAuth,
   ApiCreatedResponse,
@@ -20,9 +17,13 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+
+import { CreatePetDto } from './dto/create-pet.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { IsMyPetGuard } from './guards/isMyPet.guard';
+import { PetsService } from './pets.service';
 import { Pet } from './schemas/pet.schema';
+import { UpdatePetDto } from './dto/update-pet.dto';
 
 @ApiTags('Pets') // Swagger tag for API
 @UseGuards(JwtAuthGuard)
@@ -68,7 +69,9 @@ export class PetsController {
   @ApiForbiddenResponse({ description: 'Forbidden' })
   @UseGuards(IsMyPetGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.petsService.remove(id);
+  async remove(@Param('id') id: string, @Request() req: AuthenticatedRequest) {
+    await this.petsService.removeOne(id, req.user._id);
+
+    return { message: `Pet ${id} has been deleted successfully` };
   }
 }

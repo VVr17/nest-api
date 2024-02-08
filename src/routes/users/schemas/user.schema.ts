@@ -1,4 +1,4 @@
-import { HydratedDocument, SchemaTypes, Types } from 'mongoose';
+import { HydratedDocument, SchemaTypes } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as bcrypt from 'bcryptjs';
 import { ApiProperty } from '@nestjs/swagger';
@@ -59,7 +59,7 @@ export class User {
   photoURL: string;
 
   @ApiProperty()
-  @Prop([{ type: Types.ObjectId, ref: 'Pet', default: [] }])
+  @Prop([{ type: SchemaTypes.ObjectId, ref: 'Pet', default: [] }])
   pets: string[];
 
   @ApiProperty()

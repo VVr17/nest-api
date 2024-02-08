@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 
 import { CreateNoticeDto } from './dto/create-notice.dto';
 import { Notice } from './schemas/notice.schema';
@@ -80,8 +80,6 @@ export class NoticesService {
       { new: true },
     );
 
-    // TODO: to add user.notices update
-
     if (!updatedNotice) {
       throw new NotFoundException(`Notice with ID ${id} not found`);
     }
@@ -89,13 +87,25 @@ export class NoticesService {
     return updatedNotice;
   }
 
-  async remove(id: string): Promise<void> {
-    const deletedNotice = await this.noticeModel.findByIdAndDelete(id);
+  async removeOne(noticeId: string, userId: string): Promise<void> {
+    const noticeObjectId = new Types.ObjectId(noticeId);
 
-    // TODO: to add user.notices update
+    const deletedNotice = await this.noticeModel.findByIdAndDelete(noticeId);
 
     if (!deletedNotice) {
-      throw new NotFoundException(`Notice with ID ${id} not found`);
+      throw new NotFoundException(`Notice with ID ${noticeId} not found`);
     }
+
+    // Update user's pets
+    await this.usersService.updateField(
+      { $pull: { notices: noticeObjectId } },
+      userId,
+    );
+
+    return;
+  }
+
+  async removeMany(noticeIds: string[]): Promise<void> {
+    await this.noticeModel.deleteMany({ _id: { $in: noticeIds } });
   }
 }

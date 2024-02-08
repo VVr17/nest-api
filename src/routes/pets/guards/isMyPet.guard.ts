@@ -1,5 +1,6 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 
+// Guard to check whether pet to be dealt with belongs to current user
 @Injectable()
 export class IsMyPetGuard implements CanActivate {
   constructor() {}

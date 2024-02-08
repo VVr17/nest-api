@@ -3,11 +3,12 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model, Types } from 'mongoose';
+
+import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './schemas/user.schema';
-import { Model, Types } from 'mongoose';
-import { InjectModel } from '@nestjs/mongoose';
-import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -38,7 +39,6 @@ export class UsersService {
   }
 
   async remove(id: string) {
-    //TODO: remove user data from notices and pets
     return await this.userModel.findByIdAndDelete(id);
   }
 
@@ -52,7 +52,7 @@ export class UsersService {
       .select('notices')
       .populate({
         path: 'notices',
-        select: 'title photoURL name breed',
+        select: 'title photoURL name breed sex birthDate location comments',
       })
       .exec();
 
@@ -65,7 +65,7 @@ export class UsersService {
       .select('favoriteNotices')
       .populate({
         path: 'favoriteNotices',
-        select: 'title photoURL name breed',
+        select: 'title photoURL name breed sex birthDate location comments',
       })
       .exec();
 
@@ -95,7 +95,7 @@ export class UsersService {
       .select('favoriteNotices')
       .populate({
         path: 'favoriteNotices',
-        select: 'title photoURL name breed',
+        select: 'title photoURL name breed sex birthDate location comments',
       });
 
     return updatedUser.favoriteNotices;
@@ -121,17 +121,21 @@ export class UsersService {
       .select('favoriteNotices')
       .populate({
         path: 'favoriteNotices',
-        select: 'title photoURL name breed',
+        select: 'title photoURL name breed sex birthDate location comments',
       });
 
     return updatedUser.favoriteNotices;
   }
 
   async getUserPets(id: string) {
-    const user = await this.userModel.findById(id).select('pets').populate({
-      path: 'pets',
-      select: 'name breed',
-    });
+    const user = await this.userModel
+      .findById(id)
+      .select('pets')
+      .populate({
+        path: 'pets',
+        select: 'name breed birthDate comments photoURL',
+      })
+      .exec();
 
     return user.pets;
   }

@@ -5,6 +5,9 @@ import { getModelToken } from '@nestjs/mongoose';
 import { Category } from '../categories/schemas/category.schema';
 import { Notice } from '../notices/schemas/notice.schema';
 import { User } from './schemas/user.schema';
+import { PetsService } from '../pets/pets.service';
+import { Pet } from '../pets/schemas/pet.schema';
+import { NoticesService } from '../notices/notices.service';
 
 describe('UsersController', () => {
   let controller: UsersController;
@@ -14,8 +17,23 @@ describe('UsersController', () => {
       controllers: [UsersController],
       providers: [
         UsersService,
+        NoticesService,
+        PetsService,
         {
           provide: getModelToken(Notice.name),
+          useValue: {
+            new: jest.fn(),
+            constructor: jest.fn(),
+            find: jest.fn(),
+            findOne: jest.fn(),
+            updateOne: jest.fn(),
+            deleteOne: jest.fn(),
+            create: jest.fn(),
+            exec: jest.fn(),
+          },
+        },
+        {
+          provide: getModelToken(Pet.name),
           useValue: {
             new: jest.fn(),
             constructor: jest.fn(),

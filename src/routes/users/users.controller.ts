@@ -8,9 +8,8 @@ import {
   Put,
   Request,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { UpdateUserDto } from './dto/update-user.dto';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
@@ -18,10 +17,14 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { User } from './schemas/user.schema';
+import { DeleteUserDataInterceptor } from './deleteUserData.interceptor';
 import { Notice } from '../notices/schemas/notice.schema';
 import { Pet } from '../pets/schemas/pet.schema';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { UsersService } from './users.service';
+import { User } from './schemas/user.schema';
 
 @ApiTags('Users') // Swagger tag for API
 @UseGuards(JwtAuthGuard)
@@ -59,6 +62,7 @@ export class UsersController {
 
   // Delete user account
   @ApiOkResponse({ description: 'User profile has been successfully deleted' })
+  @UseInterceptors(DeleteUserDataInterceptor) // Apply the interceptor here
   @Delete('/me')
   async removeUser(@Request() req: AuthenticatedRequest) {
     await this.usersService.remove(req.user._id);

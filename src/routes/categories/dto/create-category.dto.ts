@@ -10,14 +10,14 @@ import {
 } from 'class-validator';
 
 class TitleDto {
-  @ApiProperty()
+  @ApiProperty({ example: 'Загублені/Знайдені' })
   @IsString()
   @MinLength(4)
   @MaxLength(30)
   @IsNotEmpty()
   uk: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'Lost/Found' })
   @IsString()
   @MinLength(4)
   @MaxLength(30)
@@ -31,7 +31,7 @@ export class CreateCategoryDto {
   @Type(() => TitleDto)
   title: TitleDto;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'lost-found' })
   @IsString()
   @IsNotEmpty()
   @MinLength(4)
